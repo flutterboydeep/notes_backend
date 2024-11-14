@@ -6,7 +6,7 @@ services:
     startCommand: npm start
     plan: free
     branches:
-      - main
+      - launch-api-heroko
     envVars:
       - key: NODE_ENV
         value: production
