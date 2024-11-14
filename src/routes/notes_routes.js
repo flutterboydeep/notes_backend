@@ -36,17 +36,23 @@ router.get("/notes/list", async function (req, res) {
 
 router.post("/notes/add", async function (req, res) {
     try {
-        const addNewNote = new Notes({
-            id: req.body.id,
-            userid: req.body.userid,
-            title: req.body.title,
-            content: req.body.content,
-        });
+        const id = Notes.find({ id: req.body.id });
+        if (id != null) {
+            return res.json({ message: `${req.body.id}` + " id allready exist" });
+        } else {
 
-        await addNewNote.save();
-        const response = { message: "New Note Added 🙂 " + `id: ${req.body.id}` };
-        res.json(response);
 
+            const addNewNote = new Notes({
+                id: req.body.id,
+                userid: req.body.userid,
+                title: req.body.title,
+                content: req.body.content,
+            });
+
+            await addNewNote.save();
+            const response = { message: "New Note Added 🙂 " + `id: ${req.body.id}` };
+            return res.json(response);
+        }
     } catch (error) {
         res.status(500).json({ message: "Failed to Add Notes ", error })
     }

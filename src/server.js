@@ -28,7 +28,8 @@ mongoose.connect("mongodb+srv://deep:deep123@cluster0.bwoiy.mongodb.net/notesdb"
 
 
 });
-app.listen(5001, function () {
-    console.log("server started at port at : 5001");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, function () {
+    console.log("server started at port at : " + PORT);
 
 });
