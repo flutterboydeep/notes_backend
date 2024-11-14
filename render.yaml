@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: notes-api
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    branches:
+      - main
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: <your-database-url>
+    autoDeploy: true
