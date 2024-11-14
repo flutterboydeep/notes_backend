@@ -12,7 +12,8 @@ app.use(bodyParser.json());
 mongoose.connect("mongodb+srv://deep:deep123@cluster0.bwoiy.mongodb.net/notesdb").then(function () {
 
     app.get("/", function (req, res) {
-        res.send("This is homepage ");
+        // res.send("This is homepage ");
+        res.json({ message: "Api worked sucessfuly" })
     });
 
     /* ------ if find json according to particular userid then-----------*/
