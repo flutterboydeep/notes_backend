@@ -61,32 +61,32 @@ router.post("/notes/add", async function (req, res) {
 });
 
 // 1 issue form this method this method  add json data in last because if item == exist then delete after it add new item 
-router.post("/notes/update", async function (req, res) {
-    try {
+// router.post("/notes/update", async function (req, res) {
+//     try {
 
-        await Notes.deleteOne({ id: req.body.id }); //if item is in json then delete that item than add new item 
-        const addNewNote = new Notes({
-            id: req.body.id,
-            userid: req.body.userid,
-            title: req.body.title,
-            content: req.body.content,
-        });
+//         await Notes.deleteOne({ id: req.body.id }); //if item is in json then delete that item than add new item 
+//         const addNewNote = new Notes({
+//             id: req.body.id,
+//             userid: req.body.userid,
+//             title: req.body.title,
+//             content: req.body.content,
+//         });
 
-        await addNewNote.save();
-        const response = { message: "New Note Added 🙂 " + `id: ${req.body.id}` };
-        res.json(response);
+//         await addNewNote.save();
+//         const response = { message: "New Note Added 🙂 " + `id: ${req.body.id}` };
+//         res.json(response);
 
-    } catch (error) {
-        res.status(500).json({ message: "Failed to Add Notes ", error })
-    }
-
-
-});
+//     } catch (error) {
+//         res.status(500).json({ message: "Failed to Add Notes ", error })
+//     }
 
 
-/*    // --------update json 2st method -----------------
-router.put("/notes/update/:id", async function (req, res) {
-    const notesId = req.params.id;
+// });
+
+
+// --------update json 2st method -----------------
+router.put("/notes/update", async function (req, res) {
+    const notesId = req.body.id;
 
 
     try {
@@ -112,9 +112,9 @@ router.put("/notes/update/:id", async function (req, res) {
         // console.error("Error updating note:", error);
         res.status(500).json({ message: "Failed to update note", e });
         console.log("error is in ", e);
-}
+    }
 });
-*/
+
 
 
 
