@@ -9,10 +9,15 @@ router.get("/notes", async function (req, res) {
     res.json(notes);
 
 });
-router.get("/notes/list", async function (req, res) {
-    var notes = await Notes.find({ id: req.body.id }); //if userid ==req.params.userid
-    // var notes = await Notes.find();
-    res.json(notes);
+router.get("/notes/list/:userid", async function (req, res) {
+    try {
+        var notes = await Notes.find({ userid: req.params.userid }); //if userid ==req.params.userid
+        // var notes = await Notes.find();
+        res.json(notes);
+
+    } catch (e) {
+        res.statusCode(500).json("Failed to get this data");
+    }
 
 });
 
@@ -36,8 +41,9 @@ router.get("/notes/list", async function (req, res) {
 
 router.post("/notes/add", async function (req, res) {
     try {
-        const id = Notes.find({ id: req.body.id });
-        if (id != null) {
+        const ids = await Notes.findOne({ id: req.body.id });
+        if (ids != null) {
+            console.log("this is ids", ids);
             return res.json({ message: `${req.body.id}` + " id allready exist" });
         } else {
 
@@ -119,7 +125,7 @@ router.put("/notes/update", async function (req, res) {
 
 
 
-router.post("/notes/delete", async function (req, res) {
+router.delete("/notes/delete", async function (req, res) {
     try {
         // Retrieve the note to get its title before deletion
         const note = await Notes.findOne({ id: req.body.id });
